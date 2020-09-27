@@ -8,16 +8,26 @@
     "name": {
       "description": "The name of the service.",
       "type": "string",
-      "$default": {
-        "$source": "argv",
-        "index": 0
-      },
-      "x-prompt": "Who to greet?"
+      "default": "scss-migrate",
+      "index": 0
+    },
+    "from": {
+      "description": "Current stylesheet format",
+      "type": "string",
+      "default": "css",
+      "enum": ["css", "scss"],
+      "x-prompt": "Which stylesheet format are you migrating from?"
+    },
+    "to": {
+      "description": "Stylesheet format desired",
+      "type": "string",
+      "default": "scss",
+      "enum": ["scss", "css"],
+      "x-prompt": "Which stylesheet format are you migrating to?"
     },
     "project": {
       "type": "string",
       "description": "Generate in project"
     }
-  },
-  "required": ["name"]
+  }
 }

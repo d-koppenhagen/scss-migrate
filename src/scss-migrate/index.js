@@ -19,18 +19,18 @@ function scssMigrate(_options) {
         const defaultProjectPath = project_1.buildDefaultPath(project);
         const parsedPath = parse_name_1.parseName(defaultProjectPath, _options.name);
         const { path } = parsedPath;
-        let filePaths = glob.sync(`.${path}/**/*.css`);
+        let filePaths = glob.sync(`.${path}/**/*.${_options.from}`);
         console.log('Files to rename', filePaths);
         filePaths.forEach(filePath => {
             let content;
             let filePathNoExtension = filePath.substr(0, filePath.lastIndexOf('.'));
             let fileName = filePathNoExtension.substr(filePathNoExtension.lastIndexOf('/') + 1, filePathNoExtension.length);
-            let newFilePath = `${filePathNoExtension}.scss`;
+            let newFilePath = `${filePathNoExtension}.${_options.to}`;
             tree.rename(filePath, newFilePath);
             content = tree.exists(`${filePathNoExtension}.ts`) ? tree.read(`${filePathNoExtension}.ts`) : null;
             if (content) {
                 const strContent = content.toString();
-                const finalstr = strContent === null || strContent === void 0 ? void 0 : strContent.replace(`${fileName}.css`, `${fileName}.scss`);
+                const finalstr = strContent === null || strContent === void 0 ? void 0 : strContent.replace(`${fileName}.${_options.from}`, `${fileName}.${_options.to}`);
                 tree.overwrite(`${filePathNoExtension}.ts`, finalstr);
             }
         });

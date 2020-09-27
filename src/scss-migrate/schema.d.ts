@@ -1,4 +1,5 @@
 export interface Schema {
     name: string;
-    project: ?string;
+    from?: string;
+    to?: string;
 }

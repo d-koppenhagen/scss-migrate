@@ -26,7 +26,7 @@ export function scssMigrate(_options: Schema): Rule {
     const { path } = parsedPath;
 
 
-    let filePaths = glob.sync(`.${path}/**/*.css`);
+    let filePaths = glob.sync(`.${path}/**/*.${_options.from}`);
 
     console.log('Files to rename', filePaths);
 
@@ -34,7 +34,7 @@ export function scssMigrate(_options: Schema): Rule {
       let content: Buffer;
       let filePathNoExtension: string = filePath.substr(0, filePath.lastIndexOf('.'));
       let fileName = filePathNoExtension.substr(filePathNoExtension.lastIndexOf('/') + 1, filePathNoExtension.length)
-      let newFilePath = `${filePathNoExtension}.scss`;
+      let newFilePath = `${filePathNoExtension}.${_options.to}`;
 
       tree.rename(filePath, newFilePath);
 
@@ -42,7 +42,7 @@ export function scssMigrate(_options: Schema): Rule {
 
       if (content) {
         const strContent = content.toString();
-        const finalstr: string = strContent?.replace(`${fileName}.css`, `${fileName}.scss`);
+        const finalstr: string = strContent?.replace(`${fileName}.${_options.from}`, `${fileName}.${_options.to}`);
 
         tree.overwrite(`${filePathNoExtension}.ts`, finalstr);
       }
