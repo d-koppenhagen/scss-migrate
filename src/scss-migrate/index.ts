@@ -1,7 +1,6 @@
 import { Rule, SchematicContext, Tree, SchematicsException } from '@angular-devkit/schematics';
 import { buildDefaultPath } from '@schematics/angular/utility/project'
 import { Schema } from './schema';
-import { RunSchematicTask } from '@angular-devkit/schematics/tasks';
 
 export function scssMigrate(_options: Schema): Rule {
   return (tree: Tree, _context: SchematicContext) => {
@@ -11,8 +10,6 @@ export function scssMigrate(_options: Schema): Rule {
     if (!workspaceConfigBuffer) {
       throw new SchematicsException('Not an Angular CLI project')
     } else {
-      const shell = require('shelljs');
-
       const workspaceConfig = JSON.parse(workspaceConfigBuffer.toString());
       const projectName = workspaceConfig.defaultProject;
       const project = workspaceConfig.projects[projectName];

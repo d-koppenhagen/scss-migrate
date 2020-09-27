@@ -5,12 +5,6 @@
   "description": "Options to pass to the schematic",
   "type": "object",
   "properties": {
-    "name": {
-      "description": "The name of the service.",
-      "type": "string",
-      "default": "scss-migrate",
-      "index": 0
-    },
     "from": {
       "description": "Current stylesheet format",
       "type": "string",

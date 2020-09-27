@@ -11,7 +11,6 @@ function scssMigrate(_options) {
             throw new schematics_1.SchematicsException('Not an Angular CLI project');
         }
         else {
-            const shell = require('shelljs');
             const workspaceConfig = JSON.parse(workspaceConfigBuffer.toString());
             const projectName = workspaceConfig.defaultProject;
             const project = workspaceConfig.projects[projectName];

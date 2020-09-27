@@ -1,7 +1,7 @@
 {
   "name": "@schematics/scss-migrate",
   "version": "1.0.0",
-  "description": "A blank schematics",
+  "description": "A schematic to migrate from CSS to SCSS stylesheet format for an Angular CLI project",
   "scripts": {
     "build": "tsc -p tsconfig.json --watch",
     "test": "npm run build && jasmine src/**/*_spec.js"
@@ -17,7 +17,6 @@
     "@angular-devkit/schematics": "^10.1.0",
     "@schematics/angular": "^9.1.0",
     "glob": "^7.1.6",
-    "shelljs": "^0.8.4",
     "typescript": "~4.0.2"
   },
   "devDependencies": {
