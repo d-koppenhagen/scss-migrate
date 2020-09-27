@@ -19,8 +19,8 @@ function scssMigrate(_options) {
         const defaultProjectPath = project_1.buildDefaultPath(project);
         const parsedPath = parse_name_1.parseName(defaultProjectPath, _options.name);
         const { path } = parsedPath;
-        let filePaths = glob.sync(`./src/**/*.css`);
-        console.log('files to rename', filePaths);
+        let filePaths = glob.sync(`.${path}/**/*.css`);
+        console.log('Files to rename', filePaths);
         filePaths.forEach(filePath => {
             let content;
             let filePathNoExtension = filePath.substr(0, filePath.lastIndexOf('.'));

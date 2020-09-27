@@ -2,9 +2,8 @@
   "name": "@schematics/scss-migrate",
   "version": "1.0.0",
   "description": "A blank schematics",
-  "main": "src/scss-migrate/index.ts",
   "scripts": {
-    "build": "tsc -p tsconfig.json --watch",
+    "build": "tsc -p tsconfig.json",
     "test": "npm run build && jasmine src/**/*_spec.js"
   },
   "keywords": [

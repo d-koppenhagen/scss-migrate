@@ -22,14 +22,13 @@ export function scssMigrate(_options: Schema): Rule {
     const projectName = workspaceConfig.defaultProject;
     const project = workspaceConfig.projects[projectName];
     const defaultProjectPath = buildDefaultPath(project);
-
     const parsedPath = parseName(defaultProjectPath, _options.name);
     const { path } = parsedPath;
 
 
-    let filePaths = glob.sync(`./src/**/*.css`);
+    let filePaths = glob.sync(`.${path}/**/*.css`);
 
-    console.log('files to rename', filePaths);
+    console.log('Files to rename', filePaths);
 
     filePaths.forEach(filePath => {
       let content: Buffer;
