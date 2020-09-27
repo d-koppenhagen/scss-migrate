@@ -10,9 +10,7 @@ import { strings } from '@angular-devkit/core';
 // per file.
 export function scssMigrate(_options: Schema): Rule {
   return (tree: Tree, _context: SchematicContext) => {
-    let glob = require("glob");
-
-
+    const glob = require("glob");
     const workspaceConfigBuffer = tree.read("/angular.json");
 
     if (!workspaceConfigBuffer) {
@@ -20,25 +18,18 @@ export function scssMigrate(_options: Schema): Rule {
     }
 
 
-
     const workspaceConfig = JSON.parse(workspaceConfigBuffer.toString());
-    console.log(workspaceConfig);
     const projectName = workspaceConfig.defaultProject;
-
-    console.log(projectName);
     const project = workspaceConfig.projects[projectName];
-    console.log(project);
     const defaultProjectPath = buildDefaultPath(project);
 
     const parsedPath = parseName(defaultProjectPath, _options.name);
+    const { path } = parsedPath;
 
-    const { name, path } = parsedPath;
 
-    console.log(name, path);
+    let filePaths = glob.sync(`./src/**/*.css`);
 
-    console.log('filhes', _options.project);
-    let filePaths = glob.sync(`${path}/**/*.css`);
-
+    console.log('files to rename', filePaths);
 
     filePaths.forEach(filePath => {
       let content: Buffer;
@@ -47,28 +38,17 @@ export function scssMigrate(_options: Schema): Rule {
       let newFilePath = `${filePathNoExtension}.scss`;
 
       tree.rename(filePath, newFilePath);
-      content = tree.read(`${filePathNoExtension}.ts`);
-      const strContent = content.toString();
 
-      const finalstr: string = strContent?.replace(`${fileName}.css`, `${fileName}.scss`);
+      content = tree.exists(`${filePathNoExtension}.ts`) ? tree.read(`${filePathNoExtension}.ts`) : null;
 
-      tree.overwrite(`${filePathNoExtension}.ts`, finalstr);
+      if (content) {
+        const strContent = content.toString();
+        const finalstr: string = strContent?.replace(`${fileName}.css`, `${fileName}.scss`);
 
+        tree.overwrite(`${filePathNoExtension}.ts`, finalstr);
+      }
     });
 
-    // const sourceTemplates = url('');
-
-
-    // const sourceParametrizedTemplate = apply(sourceTemplates, [
-    //   template({
-    //     ..._options,
-    //     ...strings
-    //   })
-    // ]);
-
-    // tree.create('hello.js', `console.log('hello ${name}!')`);
-
-    // return mergeWith(sourceParametrizedTemplate);
 
     return tree;
   };

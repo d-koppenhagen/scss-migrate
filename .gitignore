@@ -1,7 +1,6 @@
-# Outputs
-src/**/*.js
-src/**/*.js.map
-src/**/*.d.ts
+# Ignores TypeScript files, but keeps definitions.
+*.ts
+!*.d.ts
 
 # IDEs
 .idea/
